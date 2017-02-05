@@ -23,10 +23,18 @@ def setup():
 def loop():
     while True:
         for duty in range(11):
-        servo.ChangeDutyCycle(duty * 10)
-        time.sleep(1)#pause and wait for movement
-        distances[duty] = getDist()
+            servo.ChangeDutyCycle(duty * 10)
+            time.sleep(1)#pause and wait for movement
+            distances[duty] = getDist()
+        sendData()
+        for duty in range(10,-1,-1):
+            servo.ChangeDutyCycle(duty * 10)
+            time.sleep(1)#pause and wait for movement
+            distances[duty] = getDist()
+        sendData()
 
+def sendData():
+    #send data to socket
 setup()
 loop()
 
